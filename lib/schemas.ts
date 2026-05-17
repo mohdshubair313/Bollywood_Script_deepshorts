@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TROPE_IDS } from "./trope-catalog";
 
 export const TitleSchema = z.object({
   title: z.string().describe("Catchy Bollywood movie title — dramatic, over-the-top"),
@@ -18,6 +19,12 @@ export const CastSchema = z.object({
   ).describe("Array of 3-5 characters in the script"),
 });
 
+export const TropeEntrySchema = z.object({
+  id: z.enum(TROPE_IDS).describe("Trope identifier from the catalog"),
+  sceneNumber: z.number().describe("Scene number where the trope appears"),
+  description: z.string().describe("Brief description of how the trope played out in the scene"),
+});
+
 export const BollywoodScriptSchema = z.object({
   title: z.string(),
   tagline: z.string(),
@@ -31,12 +38,13 @@ export const BollywoodScriptSchema = z.object({
       quirk: z.string(),
     })
   ),
+  tropes: z.array(TropeEntrySchema).describe("Array of 2+ Bollywood tropes injected into the screenplay"),
   scenes: z.array(
     z.object({
       sceneNumber: z.number(),
       title: z.string().describe("Scene title, e.g., 'The Grand Entry', 'Rain of Emotions'"),
       setting: z.string().describe("Location and atmosphere, e.g., 'A bustling Mumbai street during monsoon'"),
-      stageCue: z.string().describe("Opening stage direction, e.g., '[Rain starts pouring as HERO makes his entry]'"),
+      stageCue: z.string().describe("Opening stage direction with optional trope injection, e.g., '[Rain starts pouring as HERO makes his entry]'"),
       dialogues: z.array(
         z.object({
           character: z.string(),
@@ -51,4 +59,5 @@ export const BollywoodScriptSchema = z.object({
 
 export type TitleData = z.infer<typeof TitleSchema>;
 export type CastData = z.infer<typeof CastSchema>;
+export type TropeEntryData = z.infer<typeof TropeEntrySchema>;
 export type BollywoodScriptData = z.infer<typeof BollywoodScriptSchema>;

@@ -6,6 +6,7 @@ import {
   type CastData,
 } from "@/lib/schemas";
 import { SCREENPLAY_AGENT_PROMPT } from "@/lib/prompts";
+import { buildTropePromptSection, buildTropeSchemaPrompt } from "@/lib/trope-catalog";
 
 export async function generateScreenplay(
   situation: string,
@@ -24,12 +25,20 @@ Mood: ${titleData.mood}`;
     )
     .join("\n");
 
+  const tropeContext = [
+    buildTropePromptSection(titleData.mood),
+    buildTropeSchemaPrompt(),
+  ]
+    .filter(Boolean)
+    .join("\n\n");
+
   const systemPrompt = SCREENPLAY_AGENT_PROMPT.replace(
     "{titleContext}",
     titleContext
   )
     .replace("{castContext}", castContext)
-    .replace("{situation}", situation);
+    .replace("{situation}", situation)
+    .replace("{tropeContext}", tropeContext);
 
   const { output } = await generateText({
     model: groq("llama-3.3-70b-versatile"),

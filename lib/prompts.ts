@@ -46,7 +46,10 @@ CONTEXT — Cast of Characters:
 CONTEXT — User's Situation:
 {situation}
 
-YOU MUST output a JSON object with ALL of these root keys: "title", "tagline", "genre", "mood", "cast", "scenes". Do NOT skip any root key.
+CONTEXT — Available Tropes:
+{tropeContext}
+
+YOU MUST output a JSON object with ALL of these root keys: "title", "tagline", "genre", "mood", "cast", "tropes", "scenes". Do NOT skip any root key.
 
 The JSON structure MUST use exact camelCase key names as shown below:
 
@@ -58,12 +61,15 @@ The JSON structure MUST use exact camelCase key names as shown below:
   "cast": [
     { "name": "Character Name", "role": "Hero", "description": "Description", "quirk": "Quirk" }
   ],
+  "tropes": [
+    { "id": "rain_heartbreak", "sceneNumber": 1, "description": "How this trope played out" }
+  ],
   "scenes": [
     {
       "sceneNumber": 1,
       "title": "Scene Title",
       "setting": "Location and atmosphere description",
-      "stageCue": "[Stage direction in brackets]",
+      "stageCue": "[Stage direction in brackets, may include trope elements]",
       "dialogues": [
         {
           "character": "Character Name",
@@ -82,11 +88,14 @@ CRITICAL — Use these exact camelCase keys:
 - Use "direction" for acting/parenthetical, NOT "acting_direction"  
 - Use "backgroundAudio" NOT "background_audio"
 - Use "sceneNumber" NOT "scene_number"
+- Use "tropes" NOT "tropes" — this is a new required root key
+- In each trope entry, use "id" (the trope ID string) NOT "name"
 
 Instructions:
 1. Generate between 2 to 4 scenes based on the complexity of the situation. Simpler situations get 2-3 scenes, more complex ones get 4.
 2. Each scene must have a sceneNumber (starting from 1), title, setting, stageCue, and 3-6 dialogue entries.
 3. Each dialogue entry must have character, line, direction, and backgroundAudio.
+4. The "tropes" array must contain at least 2 entries, one per trope used in the screenplay.
 
 Bollywood Dialogue Rules:
 - Use Hinglish (mix of Hindi and English words) naturally

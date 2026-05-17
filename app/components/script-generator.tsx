@@ -8,6 +8,8 @@ import { MoviePosterCard } from "./movie-poster-card";
 import { CastCard } from "./cast-card";
 import { SceneCard } from "./scene-card";
 import { ErrorBoundary } from "./error-boundary";
+import { AudioPlayer } from "./audio-player";
+import { TropeBadge } from "./trope-badge";
 
 type AgentPhase = "title" | "cast" | "screenplay";
 
@@ -130,6 +132,21 @@ export function ScriptGenerator() {
             <CastCard characters={object.cast} />
           )}
 
+          {object.tropes && object.tropes.length > 0 && (
+            <div className="glass rounded-2xl p-5 animate-slide-up">
+              <h3 className="font-display font-semibold text-base text-cinema-gold-light mb-3 flex items-center gap-2">
+                <span>🎭</span> Bollywood Clichés Injected
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {object.tropes.map((trope, i) =>
+                  trope ? (
+                    <TropeBadge key={i} id={trope.id} />
+                  ) : null
+                )}
+              </div>
+            </div>
+          )}
+
           {object.scenes && object.scenes.length > 0 && (
             <div className="space-y-8">
               {object.scenes.map((scene, i) =>
@@ -145,6 +162,10 @@ export function ScriptGenerator() {
                 ) : null
               )}
             </div>
+          )}
+
+          {(status === "done" || status === "streaming") && (
+            <AudioPlayer script={object} />
           )}
         </div>
       )}

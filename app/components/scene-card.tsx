@@ -7,12 +7,19 @@ interface Dialogue {
   backgroundAudio?: string;
 }
 
+interface Trope {
+  name?: string;
+  sceneNumber?: number;
+  description?: string;
+}
+
 interface SceneCardProps {
   sceneNumber: number;
   title?: string;
   setting?: string;
   stageCue?: string;
   dialogues: (Dialogue | undefined)[];
+  tropes?: (Trope | undefined)[];
 }
 
 export function SceneCard({
@@ -21,6 +28,7 @@ export function SceneCard({
   setting,
   stageCue,
   dialogues,
+  tropes,
 }: SceneCardProps) {
   return (
     <div className="space-y-4 animate-slide-up">
@@ -47,6 +55,22 @@ export function SceneCard({
             <span className="text-base" role="img" aria-label="clapper">🎬</span>
             {stageCue}
           </span>
+        )}
+
+        {tropes && tropes.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tropes.map((trope, i) =>
+              trope ? (
+                <span
+                  key={i}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cinema-purple/10 border border-cinema-purple/15 text-[11px] text-cinema-purple-light/90 animate-fade-in"
+                >
+                  <span>🎭</span>
+                  {trope.name}
+                </span>
+              ) : null
+            )}
+          </div>
         )}
 
         <div className="space-y-3 pt-2">

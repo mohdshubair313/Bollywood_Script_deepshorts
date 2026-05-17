@@ -113,3 +113,74 @@ body {
   background-size: 200% 100%;
   animation: shimmer 2.5s ease-in-out infinite;
 }
+
+/* Trope animation: rain drop bounce */
+@keyframes rainDrop {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+  60% { transform: translateY(2px); }
+}
+
+@keyframes sunflowerSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-10deg) scale(1.1); }
+  50% { transform: rotate(0deg) scale(1); }
+  75% { transform: rotate(10deg) scale(1.1); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+@keyframes heroRise {
+  0% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(-6px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.7; }
+}
+
+.animate-rain-drop {
+  animation: rainDrop 0.8s ease-in-out infinite;
+}
+
+.animate-sunflower-spin {
+  animation: sunflowerSpin 1.2s ease-in-out infinite;
+}
+
+.animate-hero-rise {
+  animation: heroRise 0.6s ease-in-out infinite;
+}
+
+/* Audio player bouncing dots */
+.audio-loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-cinema-gold);
+  animation: audioBounce 0.8s ease-in-out infinite alternate;
+}
+
+.audio-loading-dot:nth-child(2) {
+  animation-delay: 0.15s;
+  background: var(--color-cinema-gold-light);
+}
+
+.audio-loading-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes audioBounce {
+  from { transform: translateY(0); opacity: 0.5; }
+  to { transform: translateY(-6px); opacity: 1; }
+}
+
+/* Audio progress bar glow */
+.audio-progress-glow {
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.4);
+}
+
+/* Currently speaking line pulse */
+.speaking-pulse {
+  animation: speakingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes speakingPulse {
+  0%, 100% { border-color: rgba(212, 168, 67, 0.2); }
+  50% { border-color: rgba(212, 168, 67, 0.5); }
+}

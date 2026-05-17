@@ -6,12 +6,14 @@ const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
